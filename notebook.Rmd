@@ -1,0 +1,36 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(dplyr)
+library(tidyr)
+```
+
+
+
+
+```{r}
+covidconfirmed<-read_csv("time_series_19-covid-Confirmed.csv") %>% select(-`Province/State`) %>%  pivot_longer(ends_with("/20"),names_to = "date", values_to =  "NombreDecas") %>% mutate(statut="confirmed")
+
+
+
+
+
+
+```
+
+```{r}
+covidDeaths<-read_csv("time_series_19-covid-Deaths.csv") %>%select(-`Province/State`) %>%  pivot_longer(ends_with("/20"),names_to = "date", values_to =  "NombreDecas") %>% mutate(statut="Deaths")
+```
+
+```{r}
+covidRecovered<-read_csv("time_series_19-covid-Recovered.csv") %>%  select(-`Province/State`) %>% pivot_longer(ends_with("/20"),names_to = "date", values_to =  "NombreDecas")%>% mutate(statut="Recovered")
+
+```
+
+```{r}
+covid_global=bind_rows(covidconfirmed,covidDeaths,covidRecovered)
+
+```
+
